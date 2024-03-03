@@ -4,6 +4,7 @@ xdrip_value_string="@xdrip_value_string"
 xdrip_icon_string="@xdrip_icon_string"
 
 data_value=0
+data_value_float=0.0
 
 slope_single_down_icon="󰁅"
 slope_double_down_icon="󰁅󰁅"
@@ -23,11 +24,12 @@ select_color="#a6da95"
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $CURRENT_DIR/shared.sh
 
-xdrip_status() {
+xdrip() {
   local xdrip_local_server="$(echo $XDRIP_SERVER)"
   local xdrip_local_key="$(echo $XDRIP_SERVER_KEY)"
   local data=$(curl -s $xdrip_local_server --header "api-secret: $xdrip_local_key")
   data_value=$(echo $data | jq -r .bgs[].sgv)
+  data_value_float=$data_value
   data_value=$(printf '%.*f\n' 0 $data_value)
 
   local slope=$(echo $data | jq -r .bgs[].direction)
@@ -56,16 +58,14 @@ xdrip_status() {
       slope_icon=$slope_double_down_icon
       ;;
   esac
-
-  # echo "$(echo $data | jq -r .bgs[].sgv) $slope_icon"
 }
 
 print_icon() {
-  printf "$slope_icon"
+  printf "$data_value_float $slope_icon"
 }
 
 main() {
-  xdrip_status
+  xdrip
   print_icon
 }
 main
