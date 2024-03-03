@@ -2,8 +2,8 @@
 
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-xdrip_status_icon="#($CURRENT_DIR/scripts/xdrip_server.sh)"
-xdrip_status_interpolation_string="\#{get_status}"
+xdrip_status_icon="#($CURRENT_DIR/scripts/xdrip.sh)"
+xdrip_status_interpolation_string="\#{xdrip}"
 
 source $CURRENT_DIR/scripts/shared.sh
 
@@ -15,7 +15,7 @@ set_tmux_option() {
 
 do_interpolation() {
 	local string="$1"
-	local interpolated="${string/#xdrip_status_interpolation_string/$xdrip_status_icon}"
+	local interpolated="${string/$xdrip_status_interpolation_string/$xdrip_status_icon}"
 	echo "$interpolated"
 }
 
@@ -30,3 +30,4 @@ main() {
   update_tmux_option "status-right"
   update_tmux_option "status-left"
 }
+main

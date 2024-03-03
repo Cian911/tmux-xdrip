@@ -20,27 +20,10 @@ threshold_high="9"
 
 select_color="#a6da95"
 
-# show_xdrip() {
-#   local index=$1
-#   local icon
-#   local color
-#   local result
-#   local text
-#   local module
-#   local c
-#   result="$(get_status)"
-#   c="$(get_color)"
-#
-#   icon="$(get_tmux_option "@catppuccin_xdrip_icon" "")"
-#   text="$(get_tmux_option "@catppuccin_xdrip_text" "$result")"
-#   color="$(get_tmux_option "@catppuccin_xdrip_color" "$select_color")"
-#
-#   module=$( build_status_module "$index" "$icon" "$color" "$text" )
-#
-#   echo "$module"
-# }
+CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $CURRENT_DIR/shared.sh
 
-get_status() {
+xdrip_status() {
   local xdrip_local_server="$(echo $XDRIP_SERVER)"
   local xdrip_local_key="$(echo $XDRIP_SERVER_KEY)"
   local data=$(curl -s $xdrip_local_server --header "api-secret: $xdrip_local_key")
@@ -77,32 +60,12 @@ get_status() {
   # echo "$(echo $data | jq -r .bgs[].sgv) $slope_icon"
 }
 
-print_status() {
-  if $(get_status); then
-    printf "$(get_tmux_option "$xdrip_value_string" "$(data_value)") $(get_tmux_option "$xdrip_icon_string" "$(slope_icon)")"
-  fi
+print_icon() {
+  printf "$slope_icon"
 }
 
 main() {
-  get_status
-  print_status
+  xdrip_status
+  print_icon
 }
 main
-
-# get_color() {
-#   local xdrip_local_server="$(echo $XDRIP_SERVER)"
-#   local xdrip_local_key="$(echo $XDRIP_SERVER_KEY)"
-#   local data=$(curl -s $xdrip_local_server --header "api-secret: $xdrip_local_key")
-#   data_value=$(echo $data | jq -r .bgs[].sgv)
-#   data_value=$(printf '%.*f\n' 0 $data_value)
-#
-#   if [[ $data_value -gt $threshold_high ]]
-#   then
-#     select_color=$thm_yellow
-#   elif [[ $data_value -le $threshold_low ]]
-#   then
-#     select_color=$thm_red
-#   else
-#     select_color=$thm_green
-#   fi
-# }
