@@ -8,7 +8,7 @@ Tmux plugin that displays your glucose level & direction from xDrip in your term
 
 ### Prerequisites
 
-For this to work, you will need to ensure you are first of all _using_ [xDrip](https://xdrip.readthedocs.io/en/latest/), if not you will need to download, install, and configure it.
+For this to work, you will need to ensure you are first of all _using_ [xDrip](https://xdrip.readthedocs.io/en/latest/), if not you will need to download, install, and configure it. You will also need to ensure you have `curl` & `jq`.
 
 If you have done this or already have it setup, you will then need to ensure you have the `xDrip Web Service` enabled. You can visit the [following link](https://xdrip.readthedocs.io/en/latest/use/interapp/#web-service) for documentation on how to do this and set it up.
 
