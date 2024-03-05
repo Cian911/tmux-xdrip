@@ -3,6 +3,7 @@
 Tmux plugin that displays your glucose level & direction from xDrip in your terminal.
 
 ![xDrip Status](/screenshots/xdrip-tmux-status.png)
+![xDrip Status](/screenshots/xdrip-tmux-low-example.png)
 ![xDrip Status](/screenshots/xdrip-tmux-status-2.png)
 ![xDrip Status](/screenshots/xdrip-tmux-4.png)
 
